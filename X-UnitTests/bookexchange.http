@@ -1,0 +1,67 @@
+@token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MjZjZWFkNmU1OTk5NzUwNDA1OGRlNSIsImlhdCI6MTcxMzgxOTMwOSwiZXhwIjoxNzE0NjgzMzA5fQ.RbkOqkTHlhqESrUkqLUTDWYkW_gkyeapTB34IOfeg8U"
+
+@baseUrl = http://localhost:4000
+
+###
+GET {{baseUrl}}/books
+Authorization: Bearer {{token}}
+###
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+"email": "mvilakmo@asu.edu",
+"password": "moeenmoeen"
+}
+
+###
+POST {{baseUrl}}/books
+Content-Type: application/json
+Cookie: jwt={{token}}
+
+{
+  "title": "Sample Book",
+  "author": "Author Name",
+  "description": "Book description here",
+  "exchangeType": "borrow",
+  "owner": "5fa12345678abcdef9012345",
+  "status": "available"
+}
+
+### Sample Test: Retrieve all books
+GET http://localhost:4000/books HTTP/1.1
+
+### Sample Test: Fetch book by ID
+GET http://localhost:4000/books/6626d0206e59997504058df7 HTTP/1.1
+
+### Sample Test: Modify a book by ID
+POST  http://localhost:4000/books/update/6626d0206e59997504058df7 
+Content-Type: application/json
+
+{ 
+"title": "Updated Book Title", 
+"author": "Updated Author Name" 
+}
+
+### Sample Test: Modify a book by ID
+POST  http://localhost:4000/books/update/6626d0446e59997504058dfd
+ 
+Content-Type: application/json
+
+{ 
+"title": "Updated Book Title", 
+"author": "Updated Author Name" 
+}
+
+### Sample Test: Modify a book by ID
+POST  http://localhost:4000/books/update/6626d0606e59997504058e03
+ 
+Content-Type: application/json
+
+{ 
+"title": "Updated Book Title", 
+"author": "Updated Author Name" 
+}
+
+### Sample Test: Delete book by ID
+POST  http://localhost:4000/books/delete/6626e3477c8c4c092169c816 HTTP/1.1
